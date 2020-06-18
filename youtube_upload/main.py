@@ -209,6 +209,7 @@ def run_main(parser, options, args, output=sys.stdout):
                 playlists.add_video_to_playlist(youtube, video_id,
                                                 title=lib.to_utf8(options.playlist), privacy=options.privacy)
             output.write(video_id + "\n")
+        return video_url
     else:
         raise AuthenticationError("Cannot get youtube resource")
 
@@ -280,7 +281,7 @@ def main(arguments):
             options.description = file.read()
 
     try:
-        run_main(parser, options, args)
+        return run_main(parser, options, args)
     except googleapiclient.errors.HttpError as error:
         response = bytes.decode(error.content, encoding=lib.get_encoding()).strip()
         raise RequestError(u"Server response: {0}".format(response))
