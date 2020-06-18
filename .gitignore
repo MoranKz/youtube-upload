@@ -59,3 +59,4 @@ docs/_build/
 target/
 .vscode/
 venv/
+client_secrets.json
