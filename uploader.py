@@ -87,8 +87,10 @@ def handle_file(event):
 
     root = ElementTree.fromstring(customer_data.content)
     cards = root.findall("./result/CARDS")
-    if len(cards) != 1:
+    if len(cards) > 1:
         print("ERROR - more than one cards were returend from CRM")
+    elif len(cards) < 1:
+        print("ERROR - user id '%s' was not found in CRM" % user_id)
     else:
         title =  VIDEO_TITLE % root.find("./result/CARDS/CARD/FIELDS/P_N").text
         body = update_data_xml % (user_id, "", URL_PROGRESS_STATUS)
